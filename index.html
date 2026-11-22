@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0D0D0D">
+<title>Rahmat Firdaus | 3D Designer, Motion Artist &amp; Video Editor</title>
+<meta name="description" content="Portfolio of Rahmat Firdaus, a 3D designer, motion artist, and video editor based in Jakarta, Indonesia.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230D0D0D'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23C4F042'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css?v=40">
+</head>
+<body>
+
+<div id="preloader" aria-hidden="true">
+  <div class="curtain curtain-top"></div>
+  <div class="curtain curtain-bottom"></div>
+  <div class="pl-center">
+    <span class="pl-label mono">Loading Portfolio</span>
+    <span class="pl-count mono" id="pl-count">00%</span>
+    <div class="pl-bar"><span class="pl-bar-fill" id="pl-bar-fill"></span></div>
+  </div>
+</div>
+
+<canvas id="space-bg" aria-hidden="true"></canvas>
+<div id="nebula-layer" aria-hidden="true"></div>
+
+<a class="skip" href="#index">Skip to selected work</a>
+
+<!-- ═══════════ FLOATING CURSOR PREVIEW ═══════════ -->
+<div id="cursor-preview" aria-hidden="true">
+  <div class="cp-inner">
+    <video id="cp-video" muted loop playsinline autoplay preload="metadata"></video>
+    <div class="cp-label">
+      <span id="cp-title"></span>
+      <span id="cp-meta"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TOP BAR ═══════════ -->
+<header class="topbar">
+  <div class="topbar__grid">
+    <a href="#top" class="wordmark" aria-label="Rahmat Firdaus, back to top">
+      Rahmat Firdaus<span class="wordmark__mark">®</span>
+    </a>
+
+    <div class="topbar__center">
+      <div class="status" aria-live="polite">
+        <span class="status__dot" aria-hidden="true"></span>
+        <span class="status__text">Available <span class="status__long">for projects</span></span>
+      </div>
+      <div class="view-switch" role="group" aria-label="Switch project view">
+        <button type="button" class="vs-btn is-active" data-view="list" aria-pressed="true">List</button>
+        <button type="button" class="vs-btn" data-view="spiral" aria-pressed="false">Spiral</button>
+      </div>
+    </div>
+
+    <div class="topbar__right">
+      <button type="button" class="btn-ghost" id="open-info" aria-haspopup="dialog" aria-controls="info-panel">
+        <span>Info &amp; Contact</span>
+        <span class="btn-ghost__arrow" aria-hidden="true">↗</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__meta mono">
+      <span>Portfolio / Vol. 01</span>
+      <span>Jakarta, ID</span>
+    </div>
+
+    <h1 class="hero__statement" id="hero-title">
+      <span class="line"><span class="line__in">I shape 3D space,</span></span>
+      <span class="line"><span class="line__in">motion, and moving image</span></span>
+      <span class="line"><span class="line__in">with editorial precision.</span></span>
+    </h1>
+
+    <div class="hero__foot">
+      <p class="hero__lede">
+        Specializing in <em>3D Art</em>, <em>Motion Graphics</em>, and <em>Video Editing</em> for brands,
+        musicians, and studios that value quiet, deliberate form.
+      </p>
+
+      <div class="hero__actions">
+        <div class="filters" role="group" aria-label="Filter projects by category">
+          <span class="filter-pill" aria-hidden="true"></span>
+          <button type="button" class="filter is-active" data-cat="all" aria-pressed="true">All <sup>06</sup></button>
+          <button type="button" class="filter" data-cat="3D ART" aria-pressed="false">3D Art <sup>02</sup></button>
+          <button type="button" class="filter" data-cat="MOTION" aria-pressed="false">Motion <sup>02</sup></button>
+          <button type="button" class="filter" data-cat="EDITING" aria-pressed="false">Editing <sup>02</sup></button>
+        </div>
+        <p class="hero__hint mono">Hover to preview · Click for details</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PROJECT INDEX ═══════════ -->
+  <section class="index" id="index" aria-labelledby="index-title">
+    <div class="index__head">
+      <h2 class="index__title mono" id="index-title">Selected Work</h2>
+      <span class="index__count mono" id="index-count">06 Projects</span>
+    </div>
+
+    <div id="project-list" class="project-list" role="list" aria-live="polite">
+      <noscript><p class="empty">Enable JavaScript to view selected work.</p></noscript>
+    </div>
+
+    <div id="spiral-view" class="hidden" aria-live="polite"></div>
+  </section>
+
+  <!-- ═══════════ ABOUT ═══════════ -->
+  <section class="about" id="about" aria-labelledby="about-title">
+    <div class="about__head">
+      <span class="mono" id="about-title">01 / About</span>
+      <span class="mono">Rahmat Firdaus® / Jakarta</span>
+    </div>
+
+    <p class="about__statement">
+      It’s not just about creating art.<br>
+      It’s about building emotion through light, shape, and motion.
+    </p>
+
+    <div class="about__grid">
+      <div class="about__bio">
+        <p>
+          Rahmat Firdaus is a Jakarta-based 3D designer, motion artist, and video
+          editor. His approach is editorial: remove what is unnecessary, protect
+          the rhythm, and let form speak.
+        </p>
+        <p>
+          He works end-to-end, from <em>look development</em> and animation to
+          <em>final grade</em>, with national television, creative agencies, and
+          independent studios.
+        </p>
+      </div>
+
+      <div class="about__caps">
+        <div class="cap">
+          <span class="cap__no mono">01</span>
+          <h3 class="cap__title">3D Art</h3>
+          <p class="cap__desc">Modeling, look development, procedural texturing, and rendering for key visuals and short films.</p>
+        </div>
+        <div class="cap">
+          <span class="cap__no mono">02</span>
+          <h3 class="cap__title">Motion</h3>
+          <p class="cap__desc">Title sequences, kinetic typography, and audio-synced visualization.</p>
+        </div>
+        <div class="cap">
+          <span class="cap__no mono">03</span>
+          <h3 class="cap__title">Editing</h3>
+          <p class="cap__desc">Narrative editing, color grading, and sound design that protect the breath of a cut.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about__stats">
+      <div class="stat">
+        <span class="stat__num">03+</span>
+        <span class="stat__label mono">Years of experience</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">02</span>
+        <span class="stat__label mono">Broadcast &amp; agency</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">03</span>
+        <span class="stat__label mono">Core disciplines</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">06</span>
+        <span class="stat__label mono">Selected projects</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer" id="contact">
+    <div class="footer__row">
+      <span class="mono">© 2026 Rahmat Firdaus</span>
+      <nav class="footer__social" aria-label="Social media">
+        <a href="https://www.instagram.com/ncnnnn__/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.behance.net/rahmatfirdaus3" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.linkedin.com/in/rahmat-firdaus-6ncn6/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+      <button type="button" class="footer__copy" id="copy-email" aria-label="Copy email address">
+        <span class="copy-label">firdausrahmatf@gmail.com</span>
+        <span class="copy-drop" aria-hidden="true">↗</span>
+      </button>
+      <span class="mono footer__note" id="footer-note">© 2026 Rahmat Firdaus. All rights reserved.</span>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ═══════════ PROJECT MODAL ═══════════ -->
+<div class="modal" id="project-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pm-title">
+  <div class="modal__scrim" data-close></div>
+  <div class="modal__panel">
+    <div class="modal__top">
+      <span class="mono" id="pm-kicker">Project</span>
+      <button type="button" class="icon-btn" data-close aria-label="Close project details">
+        Close <span aria-hidden="true">✕</span>
+      </button>
+    </div>
+
+    <div class="modal__scroll" id="pm-scroll">
+      <div class="pm-head">
+        <span class="mono pm-kicker" id="pm-kicker-sub">Project</span>
+        <h2 class="pm-title" id="pm-title"></h2>
+        <p class="pm-desc" id="pm-desc"></p>
+      </div>
+
+      <div class="pm-media" id="pm-media"></div>
+
+      <div class="pm-body">
+        <dl class="pm-specs" id="pm-specs"></dl>
+        <div class="pm-extra">
+          <div class="pm-gallery-wrap">
+            <span class="mono pm-label">Breakdown / Process</span>
+            <div class="pm-gallery" id="pm-gallery"></div>
+          </div>
+          <button type="button" class="pm-next" id="pm-next">
+            Next Project <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ INFO & CONTACT SLIDE-OVER ═══════════ -->
+<div class="panel-scrim" id="panel-scrim" hidden></div>
+<aside class="panel" id="info-panel" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="info-title">
+  <div class="panel__top">
+    <span class="mono" id="info-title">Info &amp; Contact</span>
+    <button type="button" class="icon-btn" id="close-info" aria-label="Close info panel">
+      Close <span aria-hidden="true">✕</span>
+    </button>
+  </div>
+
+  <div class="panel__scroll">
+    <p class="panel__eyebrow mono">01 / Profile</p>
+    <h2 class="panel__title">3D designer, motion artist, and video editor based in Jakarta.</h2>
+    <p class="panel__bio">
+      Rahmat Firdaus builds quiet moving images: three-dimensional objects with honest
+      materials, typography that moves with rhythm, and cuts that keep their breath.
+      He works alone and with small studios, from <em>look development</em> to <em>final grade</em>.
+    </p>
+
+    <div class="panel__block">
+      <p class="panel__eyebrow mono">02 / Software stack</p>
+      <ul class="chips chips--lg">
+        <li class="chip">Blender 3D</li>
+        <li class="chip">After Effects</li>
+        <li class="chip">Premiere Pro</li>
+        <li class="chip">Photoshop</li>
+        <li class="chip">Illustrator</li>
+      </ul>
+    </div>
+
+    <div class="panel__block">
+      <p class="panel__eyebrow mono">03 / Contact</p>
+      <ul class="contact-list">
+        <li><span>Email</span><a href="mailto:firdausrahmatf@gmail.com">firdausrahmatf@gmail.com</a></li>
+        <li><span>WhatsApp</span><a href="https://wa.me/628998161957" target="_blank" rel="noopener">+62 899 8161 957</a></li>
+        <li><span>Instagram</span><a href="https://www.instagram.com/ncnnnn__/" target="_blank" rel="noopener">@ncnnnn__</a></li>
+        <li><span>Behance</span><a href="https://www.behance.net/rahmatfirdaus3" target="_blank" rel="noopener">behance.net/rahmatfirdaus3</a></li>
+        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/rahmat-firdaus-6ncn6/" target="_blank" rel="noopener">Rahmat Firdaus</a></li>
+      </ul>
+    </div>
+
+    <a class="btn-solid" href="./assets/CV.pdf" download>
+      Download CV <span aria-hidden="true">↓</span>
+    </a>
+
+    <p class="panel__foot mono">Response time: 24h · WIB (UTC+7)</p>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="script.js?v=37"></script>
+</body>
+</html>

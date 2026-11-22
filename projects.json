@@ -1,0 +1,128 @@
+[
+  {
+    "id": "01",
+    "title": "Ferrous Object",
+    "category": "3D ART",
+    "orientation": "landscape",
+    "year": 2025,
+    "client": "Monolith Records",
+    "description": "A material study for Monolith Records: a single iron object turning slowly in a vacuum, built from a simple rig and procedural corrosion textures. One hard light source and a long shadow cutting across concrete. Look development in Blender, then graded in After Effects so the contrast holds in print.",
+    "software": [
+      "Blender",
+      "Substance 3D",
+      "After Effects"
+    ],
+    "previewVideo": "./assets/preview-01.mp4",
+    "youtubeId": "aqz-KE-bpKQ",
+    "breakdownImages": [
+      "./assets/img/g1-1.jpg",
+      "./assets/img/g1-2.jpg",
+      "./assets/img/g1-3.jpg"
+    ]
+  },
+  {
+    "id": "02",
+    "title": "Concrete Bloom",
+    "category": "3D ART",
+    "orientation": "landscape",
+    "year": 2024,
+    "client": "Atelier Kinétik",
+    "description": "A study of form between concrete and organic growth for Atelier Kinétik's exhibition identity. Sixty structural variants were tested, then reduced to one final shape that moves as if breathing. Flat, cold lighting keeps the concrete texture legible on a phone and on a large print.",
+    "software": [
+      "Blender",
+      "Cinema 4D",
+      "Premiere Pro"
+    ],
+    "previewVideo": "./assets/preview-02.mp4",
+    "youtubeId": "oHg5SJYRHA0",
+    "breakdownImages": [
+      "./assets/img/g2-1.jpg",
+      "./assets/img/g2-2.jpg",
+      "./assets/img/g2-3.jpg"
+    ]
+  },
+  {
+    "id": "03",
+    "title": "Type in Motion 01",
+    "category": "MOTION",
+    "orientation": "landscape",
+    "year": 2025,
+    "client": "Ruang Studio",
+    "description": "A moving typography system for Ruang Studio's talk series. A twelve-column grid became the animation rule: every letter enters through a grid line, with no decorative easing. The result feels like a magazine page turning, not graphics that jump.",
+    "software": [
+      "After Effects",
+      "Illustrator",
+      "Premiere Pro"
+    ],
+    "previewVideo": "./assets/preview-03.mp4",
+    "youtubeId": "dQw4w9WgXcQ",
+    "breakdownImages": [
+      "./assets/img/g3-1.jpg",
+      "./assets/img/g3-2.jpg",
+      "./assets/img/g3-3.jpg"
+    ]
+  },
+  {
+    "id": "04",
+    "title": "Signal Drift",
+    "category": "MOTION",
+    "orientation": "vertical",
+    "year": 2024,
+    "client": "Orbit Labs",
+    "description": "A visualizer for the Orbit Labs product launch: signal waves moving across a dark field, synced to audio I composed myself. Every movement derives from a single amplitude curve, so visual rhythm and sound never drift apart. Built for vertical screens first, then adapted to 16:9.",
+    "software": [
+      "After Effects",
+      "Blender",
+      "Ableton Live"
+    ],
+    "previewVideo": "./assets/preview-04.mp4",
+    "youtubeId": "jNQXAC9IVRw",
+    "breakdownImages": [
+      "./assets/img/g4-1.jpg",
+      "./assets/img/g4-2.jpg",
+      "./assets/img/g4-3.jpg"
+    ]
+  },
+  {
+    "id": "05",
+    "title": "Jakarta After Dark",
+    "category": "EDITING",
+    "orientation": "landscape",
+    "year": 2025,
+    "client": "Layar Film Collective",
+    "description": "A short documentary about Jakarta's urban spaces after working hours. Four hours of footage cut to six minutes without narration: faces, streetlights, and room tone. The grade stays low-saturation with warm highlights, so the night feels humid rather than cleanly cinematic.",
+    "software": [
+      "Premiere Pro",
+      "DaVinci Resolve",
+      "After Effects"
+    ],
+    "previewVideo": "./assets/preview-05.mp4",
+    "youtubeId": "9bZkp7q19f0",
+    "breakdownImages": [
+      "./assets/img/g5-1.jpg",
+      "./assets/img/g5-2.jpg",
+      "./assets/img/g5-3.jpg"
+    ]
+  },
+  {
+    "id": "06",
+    "title": "Twenty Seconds of Silence",
+    "category": "EDITING",
+    "orientation": "landscape",
+    "year": 2023,
+    "client": "Kopi Nalar",
+    "description": "A twenty-second ad with almost no music. The rhythm comes from machine noise, steam, and paper friction; cuts land just before they feel comfortable. The six-second and three-second versions come from the same timeline, so every platform feels like one family.",
+    "software": [
+      "Premiere Pro",
+      "After Effects",
+      "Audition"
+    ],
+    "previewVideo": "./assets/preview-06.mp4",
+    "youtubeId": "kJQP7kiw5Fk",
+    "breakdownImages": [
+      "./assets/img/g6-1.jpg",
+      "./assets/img/g6-2.jpg",
+      "./assets/img/g6-3.jpg"
+    ]
+  }
+]
