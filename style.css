@@ -1632,3 +1632,29 @@ body.view-spiral .topbar {
   }
 }
 
+/* ═══════════ MOBILE (max-width: 768px): header ringkas, kartu spiral kecil,
+   bola tengah & outer ring mengecil agar 7 kartu tidak bertabrakan ═══════════ */
+@media (max-width: 768px) {
+  /* Header atas: ramping & tidak memakan ruang */
+  .topbar__grid { padding: 10px 12px; gap: 8px; }
+  .wordmark { font-size: 10px; letter-spacing: 0.12em; }
+  .status { gap: 5px; }
+  .status__text { font-size: 7.5px; letter-spacing: 0.1em; }
+  .vs-btn { transform: scale(0.76); transform-origin: center; padding: 4px 8px; font-size: 10px; }
+  .btn-ghost { padding: 5px 8px; font-size: 8px; gap: 5px; letter-spacing: 0.08em; }
+  .btn-ghost__arrow { display: none; }
+
+  /* Kartu spiral: lebih kecil agar proporsional & tidak saling menabrak */
+  .spiral-card { width: 94px !important; height: 54px !important; margin-left: -47px !important; margin-top: -27px !important; border-radius: 6px !important; }
+  .spiral-card__meta { padding: 4px 6px; gap: 6px; }
+  .spiral-card__no { font-size: 7px; }
+  .spiral-card__title { font-size: 8px; }
+
+  /* Bola tengah & outer ring: mengecil */
+  .core-gyro { width: 170px; height: 85px; }
+  .core-sphere { width: 56px; height: 56px; }
+  .core-glow { width: 86px; height: 86px; margin-left: -43px; margin-top: -43px; }
+  .core-orbit--1,
+  .core-orbit--2 { width: 145px; height: 145px; margin-left: -72.5px; margin-top: -72.5px; }
+}
+

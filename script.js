@@ -677,9 +677,9 @@
 
     if (!items.length) return;
 
-    /* <=6 proyek: gandakan pita agar spiral tetap penuh & berkesinambungan;
-       klik tetap memakai project.id yang sama */
-    const ringItems = items.length <= 6 ? [...items, ...items] : items;
+    /* >=6 proyek: JANGAN gandakan pita, agar kartu tidak terlalu padat dan
+       saling bertabrakan di layar HP; gandakan hanya bila proyek < 6 */
+    const ringItems = items.length >= 6 ? items : [...items, ...items];
     ring.innerHTML = ringItems.map(spiralMarkup).join('');
     /* Safari iOS: senjata video kartu sebelum diputar otomatis */
     armVideosIn(ring);
@@ -832,14 +832,42 @@
 
   function updateSpiralFacing() {
     if (!spiralRing || !spiralCards.length) return;
-    const isMobile = window.innerWidth < 720;
-    /* Di mobile radius harus menyisakan ruang untuk separuh kartu (82px) + margin
-       aman, supaya semua kartu muat utuh dalam viewport tanpa terpotong tepi. */
-    const rx = isMobile
-      ? Math.max(80, window.innerWidth * 0.5 - 82 - 14)
-      : Math.min(window.innerWidth * 0.41, 510);
+    const isMobile = window.innerWidth <= 768;
+
+    /* ── MOBILE (<=768px): orbit & skala kartu khusus HP agar tidak
+       bertabrakan dan tidak menutupi bola tengah ── */
+    if (isMobile) {
+      const rx = Math.min(window.innerWidth * 0.35, 138);
+      const rz = rx * 0.65;
+      const ry = Math.min(window.innerHeight * 0.21, 168);
+      for (const c of spiralCards) {
+        const activeRot = typeof rotY !== 'undefined' ? rotY : (typeof currentRot !== 'undefined' ? currentRot : 0);
+        const eff = c.a + activeRot;
+        const rad = (eff * Math.PI) / 180;
+        const velocity = typeof vel !== 'undefined' ? vel : 0;
+        const stretch = 1 + Math.min(Math.abs(velocity) * 0.015, 0.14);
+        const x = Math.sin(rad) * rx;
+        const z = Math.cos(rad) * rz;
+        const y = Math.cos(rad) * ry + Math.sin(rad) * -16;
+        const isFront = Math.cos(rad) >= 0;
+        const cardRotY = isFront ? -Math.sin(rad) * 34 : Math.sin(rad) * 34;
+        const cardRotZ = Math.sin(rad) * -6;
+        const depthNorm = (z + rz) / (2 * rz);
+        const depthScale = 0.56 + 0.34 * depthNorm;
+        c.el.style.transform =
+          `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px,${z.toFixed(1)}px) ` +
+          `rotateY(${cardRotY.toFixed(1)}deg) rotateZ(${cardRotZ.toFixed(1)}deg) ` +
+          `scale(${depthScale.toFixed(3)}) scaleX(${stretch.toFixed(4)})`;
+        c.el.style.opacity = (0.28 + 0.72 * Math.pow(depthNorm, 1.35)).toFixed(3);
+        c.el.style.zIndex = isFront ? String(Math.round(10 + depthNorm * 10)) : '2';
+      }
+      return;
+    }
+
+    /* ── DESKTOP (>768px): tidak diubah (identik dengan sebelumnya) ── */
+    const rx = Math.min(window.innerWidth * 0.41, 510);
     const rz = rx * 0.52;
-    const ry = isMobile ? 96 : 156;
+    const ry = 156;
     for (const c of spiralCards) {
       const activeRot = typeof rotY !== 'undefined' ? rotY : (typeof currentRot !== 'undefined' ? currentRot : 0);
       const eff = c.a + activeRot;
