@@ -76,6 +76,7 @@
   const preview     = $('#cursor-preview');
   const previewBox  = preview ? $('.cp-inner', preview) : null;
   const previewVid  = $('#cp-video');
+  const previewImg  = $('#cp-image');
   const previewName = $('#cp-title');
   const previewMeta = $('#cp-meta');
 
@@ -126,6 +127,7 @@
       const n = cat === 'all' ? state.projects.length : state.projects.filter((p) => p.category === cat).length;
       const sup = btn.querySelector('sup');
       if (sup) sup.textContent = pad(n);
+      if (cat !== 'all') btn.hidden = n === 0;
     });
   }
 
@@ -135,7 +137,7 @@
   }
 
   function rowMarkup(project) {
-    const thumb = (project.breakdownImages && project.breakdownImages[0]) || '';
+    const thumb = project.thumb || (project.breakdownImages && project.breakdownImages[0]) || '';
     return `
       <a class="row project-row" href="#${esc(project.id)}" data-id="${esc(project.id)}"
          role="listitem" aria-label="${esc(project.title)}, ${esc(project.category)} ${esc(project.year)}">
@@ -310,14 +312,26 @@
     const project = state.projects.find((p) => p.id === row.dataset.id);
     if (!project) return;
 
-    if (project.previewVideo && previewVid.getAttribute('data-src') !== project.previewVideo) {
-      previewVid.setAttribute('data-src', project.previewVideo);
-      previewVid.src = project.previewVideo;
+    if (project.previewVideo) {
+      preview.classList.remove('is-image');
+      if (previewVid.getAttribute('data-src') !== project.previewVideo) {
+        previewVid.setAttribute('data-src', project.previewVideo);
+        previewVid.src = project.previewVideo;
+        previewVid.load();
+      }
+      /* Safari iOS: paksa muted + playsInline sebelum play */
+      armVideo(previewVid);
+      previewVid.play().catch(() => {});
+    } else {
+      previewVid.pause();
+      previewVid.removeAttribute('src');
+      previewVid.removeAttribute('data-src');
       previewVid.load();
+      if (previewImg && project.thumb) {
+        if (previewImg.getAttribute('src') !== project.thumb) previewImg.src = project.thumb;
+        preview.classList.add('is-image');
+      }
     }
-    /* Safari iOS: paksa muted + playsInline sebelum play */
-    armVideo(previewVid);
-    previewVid.play().catch(() => {});
 
     if (previewName) previewName.textContent = project.title;
     if (previewMeta) previewMeta.textContent = `${project.category} / ${project.year}`;
@@ -350,9 +364,9 @@
 
   function mediaMarkup(project) {
     if (project.youtubeId) {
-      return `<iframe src="https://www.youtube.com/embed/${esc(project.youtubeId)}?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="${esc(project.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+      return `<iframe src="https://www.youtube-nocookie.com/embed/${esc(project.youtubeId)}?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="${esc(project.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
     }
-    return `<div class="pm-media__fallback">Media belum tersedia.</div>`;
+    return `<div class="pm-media__fallback">Media unavailable.</div>`;
   }
 
   function specRow(label, value) {
@@ -376,7 +390,10 @@
     if (pmKicker) pmKicker.textContent = `${project.category.toUpperCase()} / Number ${pad(orderIdx + 1)} / ${pad(sort.length)}`;
     if (pmKickerSub) pmKickerSub.textContent = project.category.toUpperCase() || 'Project';
     if (pmTitle) pmTitle.textContent = project.title;
-    if (pmDesc) pmDesc.textContent = project.description || '';
+    if (pmDesc) {
+      pmDesc.textContent = project.description || '';
+      pmDesc.hidden = !project.description;
+    }
     if (pmMedia) {
       pmMedia.innerHTML = mediaMarkup(project);
       pmMedia.classList.toggle('is-vertical', project.orientation === 'vertical');
@@ -595,7 +612,7 @@
   }
 
   function spiralMarkup(project) {
-    const src = project.previewVideo || ((project.breakdownImages && project.breakdownImages[0]) || '');
+    const src = project.previewVideo || project.thumb || ((project.breakdownImages && project.breakdownImages[0]) || '');
     const media = project.previewVideo
       ? `<video src="${esc(src)}" muted loop playsinline autoplay preload="metadata"></video>`
       : `<img src="${esc(src)}" alt="" loading="lazy" decoding="async">`;
