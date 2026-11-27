@@ -443,11 +443,13 @@
 
     if (!window.gsap || reduceMotion) { done(); return; }
 
-    const failSafe = setTimeout(done, 400);
+    /* Animasi visual + fallback timer yang PASTI jalan: jangan menggantung
+       penutupan pada onComplete gsap (bisa tidak advance saat tab/RAF mati). */
     gsap.to(modalPanel, {
-      opacity: 0, y: 24, duration: 0.3, ease: 'power2.in',
-      onComplete: () => { clearTimeout(failSafe); gsap.set(modalPanel, { clearProps: 'all' }); done(); }
+      opacity: 0, y: 24, duration: 0.28, ease: 'power2.in',
+      onComplete: () => gsap.set(modalPanel, { clearProps: 'all' })
     });
+    setTimeout(done, 300);
   }
 
   /* ═══ INFO PANEL ═══ */
@@ -484,12 +486,11 @@
 
     if (!window.gsap || reduceMotion) { done(); return; }
 
-    const failSafe = setTimeout(done, 450);
     gsap.to(infoPanel, {
-      xPercent: 100, duration: 0.4, ease: 'power3.inOut',
-      onComplete: () => { clearTimeout(failSafe); done(); }
+      xPercent: 100, duration: 0.4, ease: 'power3.inOut'
     });
     if (infoScrim) gsap.to(infoScrim, { opacity: 0, duration: 0.35 });
+    setTimeout(done, 420);
   }
 
   function focusFirst(container) {
