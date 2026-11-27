@@ -576,6 +576,7 @@
   const frameLerp = (base, steps) => 1 - Math.pow(1 - base, steps);
   const spiralState = {
     dragging: false, lastX: 0,
+    potentialDrag: false, startX: 0, startY: 0, justDragged: false,
     hoverCard: false, angularVelocity: 0, wheelDirection: 1
   };
 
@@ -708,13 +709,25 @@
       startMotor();
     };
     const onDown = (e) => {
-      spiralState.dragging = true;
+      /* JANGAN langsung menandai drag: gerakan mouse mikro (mis. <6px)
+         tetap dianggap klik. Drag baru aktif setelah melewati ambang,
+         sehingga klik di kartu selalu andal di desktop. */
+      spiralState.potentialDrag = true;
+      spiralState.dragging = false;
+      spiralState.startX = e.clientX;
+      spiralState.startY = e.clientY;
       spiralState.lastX = e.clientX;
-      spiralView.classList.add('is-dragging');
-      try { spiralView.setPointerCapture(e.pointerId); } catch (_) {}
     };
     const onMove = (e) => {
-      if (!spiralState.dragging) return;
+      if (!spiralState.potentialDrag) return;
+      if (!spiralState.dragging) {
+        const tx = e.clientX - spiralState.startX;
+        const ty = e.clientY - spiralState.startY;
+        if (Math.hypot(tx, ty) < 6) return; /* masih under ambang: = klik */
+        spiralState.dragging = true;
+        spiralView.classList.add('is-dragging');
+        try { spiralView.setPointerCapture(e.pointerId); } catch (_) {}
+      }
       const dx = e.clientX - spiralState.lastX;
       spiralState.lastX = e.clientX;
       rotY = (rotY + dx * 0.35 + 360) % 360;
@@ -723,13 +736,16 @@
       vel = Math.max(-3, Math.min(3, vel * 0.55 + dx * 0.1));
       applyStageRotation();
     };
-    const onUp = () => {
+    const onUp = (e) => {
+      if (spiralState.dragging) spiralState.justDragged = true;
       spiralState.dragging = false;
+      spiralState.potentialDrag = false;
       spiralView.classList.remove('is-dragging');
+      setTimeout(() => { spiralState.justDragged = false; }, 60);
     };
     const onClick = (e) => {
       const card = e.target.closest('.spiral-card');
-      if (!card) return;
+      if (!card || spiralState.justDragged) return;
       e.preventDefault();
       openProject(card.dataset.id);
     };
