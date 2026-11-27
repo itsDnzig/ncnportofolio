@@ -837,9 +837,9 @@
     /* ── MOBILE (<=768px): orbit & skala kartu khusus HP agar tidak
        bertabrakan dan tidak menutupi bola tengah ── */
     if (isMobile) {
-      const rx = Math.min(window.innerWidth * 0.35, 138);
+      const rx = Math.min(window.innerWidth * 0.30, 118);
       const rz = rx * 0.65;
-      const ry = Math.min(window.innerHeight * 0.21, 168);
+      const ry = Math.min(window.innerHeight * 0.145, 116);
       for (const c of spiralCards) {
         const activeRot = typeof rotY !== 'undefined' ? rotY : (typeof currentRot !== 'undefined' ? currentRot : 0);
         const eff = c.a + activeRot;
@@ -848,12 +848,12 @@
         const stretch = 1 + Math.min(Math.abs(velocity) * 0.015, 0.14);
         const x = Math.sin(rad) * rx;
         const z = Math.cos(rad) * rz;
-        const y = Math.cos(rad) * ry + Math.sin(rad) * -16;
+        const y = Math.cos(rad) * ry + Math.sin(rad) * -14;
         const isFront = Math.cos(rad) >= 0;
         const cardRotY = isFront ? -Math.sin(rad) * 34 : Math.sin(rad) * 34;
         const cardRotZ = Math.sin(rad) * -6;
         const depthNorm = (z + rz) / (2 * rz);
-        const depthScale = 0.56 + 0.34 * depthNorm;
+        const depthScale = 0.78 + 0.26 * depthNorm;
         c.el.style.transform =
           `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px,${z.toFixed(1)}px) ` +
           `rotateY(${cardRotY.toFixed(1)}deg) rotateZ(${cardRotZ.toFixed(1)}deg) ` +
