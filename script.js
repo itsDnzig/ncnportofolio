@@ -833,7 +833,11 @@
   function updateSpiralFacing() {
     if (!spiralRing || !spiralCards.length) return;
     const isMobile = window.innerWidth < 720;
-    const rx = isMobile ? window.innerWidth * 0.39 : Math.min(window.innerWidth * 0.41, 510);
+    /* Di mobile radius harus menyisakan ruang untuk separuh kartu (82px) + margin
+       aman, supaya semua kartu muat utuh dalam viewport tanpa terpotong tepi. */
+    const rx = isMobile
+      ? Math.max(80, window.innerWidth * 0.5 - 82 - 14)
+      : Math.min(window.innerWidth * 0.41, 510);
     const rz = rx * 0.52;
     const ry = isMobile ? 96 : 156;
     for (const c of spiralCards) {
